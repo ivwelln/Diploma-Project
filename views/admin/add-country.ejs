@@ -1,0 +1,59 @@
+<div class="container mt-4">
+    <h2>Добавить новую страну</h2>
+
+    <form action="/admin/countries" method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Название страны*</label>
+                    <input type="text" class="form-control" name="name" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Столица*</label>
+                    <input type="text" class="form-control" name="capital" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Континент*</label>
+                    <select class="form-select" name="continent" required>
+                        <option value="" disabled selected>Выберите континент</option>
+                        <option value="Африка">Африка</option>
+                        <option value="Антарктида">Антарктида</option>
+                        <option value="Азия">Азия</option>
+                        <option value="Европа">Европа</option>
+                        <option value="Северная Америка">Северная Америка</option>
+                        <option value="Южная Америка">Южная Америка</option>
+                        <option value="Австралия и Океания">Австралия и Океания</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Валюта*</label>
+                    <input type="text" class="form-control" name="currency" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Язык*</label>
+                    <input type="text" class="form-control" name="language" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Форма правления*</label>
+                    <select class="form-select" name="governmentForm" required>
+                        <option value="Республика">Республика</option>
+                        <option value="Монархия">Монархия</option>
+                        <option value="Федерация">Федерация</option>
+                        <option value="Другое">Другое</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Остальные поля и скрипты остаются без изменений -->
+        ...
+
+    </form>
+</div>

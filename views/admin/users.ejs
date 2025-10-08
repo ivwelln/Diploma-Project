@@ -1,0 +1,17 @@
+<h2>Управление пользователями</h2>
+<table>
+    <% users.forEach(user=> { %>
+        <tr>
+            <td>
+                <%= user.email %>
+            </td>
+            <td>
+                <form action="/admin/users/toggle-admin/<%= user._id %>" method="POST">
+                    <button type="submit">
+                        <%= user.isAdmin ? 'Снять админа' : 'Назначить админом' %>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        <% }) %>
+</table>

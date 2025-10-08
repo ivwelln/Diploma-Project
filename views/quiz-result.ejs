@@ -1,0 +1,28 @@
+<h2>Результаты тестирования</h2>
+
+<div class="quiz-result">
+    <h3>Ваш результат: <%= score %> из <%= total %>
+    </h3>
+    <p>Процент правильных ответов: <%= ((score / total) * 100).toFixed(1) %>%</p>
+
+    <% if(score===total) { %>
+        <div class="success-message">
+            <p>Превосходно! Вы знаете все столицы!</p>
+        </div>
+        <% } else if(score>= total * 0.7) { %>
+            <div class="success-message">
+                <p>Хороший результат! Продолжайте в том же духе!</p>
+            </div>
+            <% } else if(score>= total * 0.5) { %>
+                <div class="warning-message">
+                    <p>Неплохо, но есть куда стремиться!</p>
+                </div>
+                <% } else { %>
+                    <div class="error-message">
+                        <p>Попробуйте изучить словарь стран и попробовать снова!</p>
+                    </div>
+                    <% } %>
+
+                        <a href="/quiz" class="btn">Попробовать снова</a>
+                        <a href="/dictionary" class="btn btn-outline">Изучить словарь</a>
+</div>

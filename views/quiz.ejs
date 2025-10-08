@@ -1,0 +1,22 @@
+<h2>Тестирование на знание столиц</h2>
+
+<% if(questions.length> 0) { %>
+    <form action="/quiz/submit" method="POST">
+        <% questions.forEach((question, index)=> { %>
+            <div class="quiz-question">
+                <h3>
+                    <%= index + 1 %>. <%= question.question %>
+                </h3>
+                <% question.options.forEach(option=> { %>
+                    <label class="quiz-option">
+                        <input type="radio" name="<%= question._id %>" value="<%= option %>" required>
+                        <%= option %>
+                    </label>
+                    <% }) %>
+            </div>
+            <% }) %>
+                <button type="submit" class="btn">Завершить тест</button>
+    </form>
+    <% } else { %>
+        <p>Нет доступных вопросов для тестирования.</p>
+        <% } %>

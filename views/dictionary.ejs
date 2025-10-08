@@ -1,0 +1,132 @@
+<h2>Словарь стран и столиц</h2>
+
+<% if(user && user.isAdmin) { %>
+    <div class="admin-actions">
+        <button onclick="document.getElementById('add-country-modal').style.display='block'" class="btn">
+            Добавить страну
+        </button>
+    </div>
+
+    <!-- Модальное окно добавления страны -->
+    <div id="add-country-modal" class="modal">
+        <div class="modal-content">
+            <span onclick="document.getElementById('add-country-modal').style.display='none'"
+                class="close">&times;</span>
+            <h3>Добавить новую страну</h3>
+            <form action="/countries" method="POST">
+                <div class="form-group">
+                    <label for="name">Название страны:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="capital">Столица:</label>
+                    <input type="text" id="capital" name="capital" required>
+                </div>
+                <div class="form-group">
+                    <label for="continent">Континент:</label>
+                    <input type="text" id="continent" name="continent" required>
+                </div>
+                <div class="form-group">
+                    <label for="population">Население:</label>
+                    <input type="number" id="population" name="population">
+                </div>
+                <button type="submit" class="btn">Добавить</button>
+            </form>
+        </div>
+    </div>
+    <% } %>
+
+        <table class="countries-table">
+            <thead>
+                <tr>
+                    <th>Страна</th>
+                    <th>Столица</th>
+                    <th>Континент</th>
+                    <th>Население</th>
+                    <% if(user && user.isAdmin) { %>
+                        <th>Действия</th>
+                        <% } %>
+                </tr>
+            </thead>
+            <tbody>
+                <% countries.forEach(country=> { %>
+                    <tr>
+                        <td>
+                            <%= country.name %>
+                        </td>
+                        <td>
+                            <%= country.capital %>
+                        </td>
+                        <td>
+                            <%= country.continent %>
+                        </td>
+                        <td>
+                            <%= country.population ? country.population.toLocaleString() : '-' %>
+                        </td>
+                        <% if(user && user.isAdmin) { %>
+                            <td class="actions">
+                                <button
+                                    onclick="openEditModal('<%= country._id %>', '<%= country.name %>', '<%= country.capital %>', '<%= country.continent %>', '<%= country.population %>')"
+                                    class="btn btn-sm">Ред.</button>
+                                <form action="/countries/<%= country._id %>?_method=DELETE" method="POST"
+                                    class="inline-form">
+                                    <button type="submit" class="btn btn-sm btn-danger">Уд.</button>
+                                </form>
+                            </td>
+                            <% } %>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+
+        <% if(user && user.isAdmin) { %>
+            <!-- Модальное окно редактирования страны -->
+            <div id="edit-country-modal" class="modal">
+                <div class="modal-content">
+                    <span onclick="document.getElementById('edit-country-modal').style.display='none'"
+                        class="close">&times;</span>
+                    <h3>Редактировать страну</h3>
+                    <form id="edit-country-form" method="POST">
+                        <input type="hidden" name="_method" value="PUT">
+                        <div class="form-group">
+                            <label for="edit-name">Название страны:</label>
+                            <input type="text" id="edit-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-capital">Столица:</label>
+                            <input type="text" id="edit-capital" name="capital" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-continent">Континент:</label>
+                            <input type="text" id="edit-continent" name="continent" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-population">Население:</label>
+                            <input type="number" id="edit-population" name="population">
+                        </div>
+                        <button type="submit" class="btn">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+
+            <script>
+                function openEditModal(id, name, capital, continent, population) {
+                    document.getElementById('edit-country-form').action = `/countries/${id}`;
+                    document.getElementById('edit-name').value = name;
+                    document.getElementById('edit-capital').value = capital;
+                    document.getElementById('edit-continent').value = continent;
+                    document.getElementById('edit-population').value = population;
+                    document.getElementById('edit-country-modal').style.display = 'block';
+                }
+
+                // Закрытие модальных окон при клике вне их
+                window.onclick = function (event) {
+                    const modals = document.querySelectorAll('.modal');
+                    modals.forEach(modal => {
+                        if (event.target == modal) {
+                            modal.style.display = 'none';
+                        }
+                    });
+                }
+            </script>
+            <% } %>

@@ -1,0 +1,27 @@
+<section class="hero">
+    <h1>Изучайте страны мира</h1>
+    <p>Узнавайте столицы, флаги и интересные факты о разных странах</p>
+    <% if(!user) { %>
+        <div class="cta-buttons">
+            <a href="/auth/register" class="btn">Зарегистрироваться</a>
+            <a href="/auth/login" class="btn btn-outline">Войти</a>
+        </div>
+        <% } %>
+</section>
+
+<section class="features">
+    <div class="feature">
+        <h3>Словарь стран</h3>
+        <p>Полный список стран мира с информацией о столицах и населении</p>
+        <a href="/dictionary" class="btn">Перейти</a>
+    </div>
+    <div class="feature">
+        <h3>Тестирование</h3>
+        <p>Проверьте свои знания столиц мира</p>
+        <% if(user) { %>
+            <a href="/quiz" class="btn">Начать тест</a>
+            <% } else { %>
+                <a href="/auth/login" class="btn">Войти для теста</a>
+                <% } %>
+    </div>
+</section>
